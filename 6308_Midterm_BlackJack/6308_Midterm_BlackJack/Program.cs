@@ -10,21 +10,28 @@ namespace _6308_Midterm_BlackJack
     {
         static void Main(string[] args)
         {
-            // Shuffle and List all monotype cards
+            // Initialize the deck of 52 cards
+            List<string> suits = new List<string> { "spades", "hearts", "clubs", "diamonds" };
+            List<string> ranks = new List<string> { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K" };
+            List<string> deck = new List<string>();
+            foreach (string suit in suits)
+            {
+                foreach (string rank in ranks)
+                {
+                    deck.Add(suit + " " + rank);
+                }
+            }
+
             Random randomCards = new Random();
-            List<string> deck = new List<string> { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K" };
-            // Intialize the Starting points and coins for player and computer
-            int playerPoints = 0, computerPoints = 0;
-            int playerCoins = 100, computerCoins = 100;
+            int playerAPoints = 0, playerBPoints = 0, playerCPoints = 0,  playerDPoints=0;
+            int playerACoins = 100, playerBCoins = 100, playerCCoins = 100, playerDCoins =100 ;
             int round = 0;
 
             while (true)
             {
-                // Starting each round, and type the numbers of round at the beginning
                 round++;
                 Console.WriteLine("ROUND " + round);
                 Console.WriteLine("--------------------------------------------");
-                // Set up bet for each round
                 int betLimit;
                 if (round < 3)
                 {
@@ -47,182 +54,464 @@ namespace _6308_Midterm_BlackJack
                     betLimit = 30;
                 }
 
-                // Starting a bet for computer and player
-                int playerBet = betLimit;
-                int computerBet = betLimit;
+                int playerABet = betLimit;
+                int playerBBet = betLimit;
+                int playerCBet = betLimit;
+                int playerDBet = betLimit;
 
-                // If player and computer have not enough coins to bet, do "all in " process
-                if (playerBet > playerCoins)
+
+                if (playerABet > playerACoins)
                 {
-                    Console.WriteLine("You don't have enough coins. Your bet is set to " + playerCoins);
-                    playerBet = playerCoins;
+                    Console.WriteLine("PlayerA doesn't have enough coins. Your bet is set to " + playerACoins);
+                    playerABet = playerACoins;
                 }
-                if (computerBet > computerCoins)
+                if (playerBBet > playerBCoins)
                 {
-                    Console.WriteLine("Computer doesn't have enough coins. Its bet is set to " + computerCoins);
-                    computerBet = computerCoins;
+                    Console.WriteLine("PlayerB doesn't have enough coins. Your bet is set to " + playerBCoins);
+                    playerBBet = playerBCoins;
+                }
+                if (playerCBet > playerCCoins)
+                {
+                    Console.WriteLine("PlayerC doesn't have enough coins. Your bet is set to " + playerCCoins);
+                    playerCBet = playerCCoins;
+                }
+                if (playerDBet > playerDCoins)
+                {
+                    Console.WriteLine("PlayerD doesn't have enough coins. Your bet is set to " + playerDCoins);
+                    playerDBet = playerDCoins;
                 }
 
-                // Write down the starting bet for each one
-                Console.WriteLine("Your bet is " + playerBet);
-                Console.WriteLine("Computer's bet is " + computerBet);
-                // Intialize the total points of each player before draw card
-                int playerTotal = 0, computerTotal = 0;
-                // Reference:https://raisanenmarkus.github.io/csharp/part5/1/
-                // Player and computer draw cards
-                playerTotal += DrawCard(deck, randomCards, "You");
-                computerTotal += DrawCard(deck, randomCards, "Computer");
+                Console.WriteLine("PlayerA's bet is " + playerABet);
+                Console.WriteLine("PlayerB's bet is " + playerBBet);
+                Console.WriteLine("PlayerC's bet is " + playerCBet);
+                Console.WriteLine("PlayerD's bet is " + playerDBet);
+
+
+                int playerATotal = 0, playerBTotal = 0, playerCTotal = 0, playerDTotal=0;
+
+                playerATotal += DrawCard(deck, randomCards, "PlayerA");
+                playerBTotal += DrawCard(deck, randomCards, "PlayerB");
+                playerCTotal += DrawCard(deck, randomCards, "PlayerC");
+                playerDTotal += DrawCard(deck, randomCards, "PlayerD");
+
+
                 Console.WriteLine("--------------------------------------------");
-                Console.WriteLine("Your total is " + playerTotal);
-                Console.WriteLine("Computer total is " + computerTotal);
+                Console.WriteLine("PlayerA's total is " + playerATotal);
+                Console.WriteLine("PlayerB's total is " + playerBTotal);
+                Console.WriteLine("PlayerC's total is " + playerCTotal);
+                Console.WriteLine("PlayerD's total is " + playerDTotal);
                 Console.WriteLine("--------------------------------------------");
 
-                // In game progress, I change some special rules for this game
-                while (playerTotal < 50)
+               
+                while (true)
                 {
-                    // If player total >50, end the round
-                    if (playerTotal > 50)
+                    // PlayerA's Turn
+                    while (playerATotal < 50)
                     {
-                        Console.WriteLine("Your total is now " + playerTotal);
-                        break;
-                    }
-                    // Let player press each button to hand/draw/add bet
-                    Console.WriteLine("Press 'D' to draw another card, 'B' to add to your bet, or 'H' to hold: ");
-                    var key = Console.ReadKey(true).Key;
-
-                    // Invalid key beside D,B,and H
-                    if (key != ConsoleKey.D && key != ConsoleKey.B && key != ConsoleKey.H)
-                    {
-                        Console.WriteLine("Invalid input. Please try again.");
-                        Console.WriteLine("--------------------------------------------");
-                        continue;
-                    }
-
-                    // Add bet by input number
-                    if (key == ConsoleKey.B)
-                    {
-                        Console.Write("Enter your additional bet (limit " + betLimit + "): ");
-                        int additionalBet = int.Parse(Console.ReadLine());
-
-                        // Bet regualtion, restrict player to add bet within betLimit
-                        if (additionalBet > betLimit || additionalBet > playerCoins - playerBet)
+                        if (playerATotal > 50)
                         {
-                            // Reference:https://learn.microsoft.com/en-us/dotnet/api/system.math.min?view=net-8.0
-                            Console.WriteLine("Invalid bet. Your additional bet is set to " + Math.Min(betLimit, playerCoins - playerBet));
-                            Console.WriteLine("--------------------------------------------");
-                            additionalBet = Math.Min(betLimit, playerCoins - playerBet);
-                        }
-                        playerBet += additionalBet;
-                        // After Player add bet, computer also add bet by random number
-                        Random comBet = new Random();
-                        int computerAdditionalBet = comBet.Next(0, betLimit + 1);
-                        computerBet += computerAdditionalBet;
-                        Console.WriteLine("Computer's additional bet is " + computerAdditionalBet);
-                    }
-                    // Place D to draw cards
-                    if (key == ConsoleKey.D)
-                    {
-                        playerTotal += DrawCard(deck, randomCards, "You");
-                        Console.WriteLine("Your total is now " + playerTotal);
-                        Console.WriteLine("--------------------------------------------");
-                        // End the round if player busted 
-                        if (playerTotal > 50)
-                        {
-                            Console.WriteLine("You busted. Computer wins!");
-                            Console.WriteLine("--------------------------------------------");
-                            playerCoins -= playerBet;
-                            computerCoins += playerBet;
-                            computerPoints += 10;
+                            Console.WriteLine("PlayerA's total is now " + playerATotal);
                             break;
                         }
-                        computerTotal += DrawCard(deck, randomCards, "Computer");
-                        Console.WriteLine("The computers's total is now " + computerTotal);
-                        Console.WriteLine("--------------------------------------------");
-                        // End the round if computer busted 
-                        if (computerTotal > 50)
+                        // Let player press each button to hand/draw/add bet
+                        Console.WriteLine("Press 'D' to draw another card, 'B' to add to your bet, 'H' to hold, or 'C' to check hands: "); var key = Console.ReadKey(true).Key;
+
+                        if (key != ConsoleKey.D && key != ConsoleKey.B && key != ConsoleKey.H && key != ConsoleKey.C)
                         {
-                            Console.WriteLine("Computer busted. You wins!");
+                            Console.WriteLine("Invalid input. Please try again.");
                             Console.WriteLine("--------------------------------------------");
-                            playerCoins += computerBet;
-                            computerCoins -= computerBet;
-                            playerPoints += 10;
+                            continue;
+                        }
+
+                        if (key == ConsoleKey.B)
+                        {
+                            Console.Write("Enter your additional bet (limit " + betLimit + "): ");
+                            int additionalBet = int.Parse(Console.ReadLine());
+
+                            if (additionalBet > betLimit || additionalBet > playerACoins - playerABet)
+                            {
+                                Console.WriteLine("Invalid bet. Your additional bet is set to " + Math.Min(betLimit, playerACoins - playerABet));
+                                Console.WriteLine("--------------------------------------------");
+                                additionalBet = Math.Min(betLimit, playerACoins - playerABet);
+                            }
+                            playerABet += additionalBet;
+                        }
+                        // Place D to draw cards
+                        if (key == ConsoleKey.D)
+                        {
+                            playerATotal += DrawCard(deck, randomCards, "PlayerA");
+                            Console.WriteLine("PlayerA's total is now " + playerATotal);
+                            Console.WriteLine("--------------------------------------------");
+                            // End the round if player busted 
+                            if (playerATotal > 50)
+                            {
+                                Console.WriteLine("PlayerA busted.");
+                                Console.WriteLine("--------------------------------------------");
+                                playerACoins -= playerABet;
+                                break;
+                            }
                             break;
                         }
+
+                        // Place H to hold the card
+                        if (key == ConsoleKey.H)
+                        {
+                            break; // PlayerA chooses to hold and ends their turn
+                        }
+                        if (key == ConsoleKey.C)
+                        {
+                            Console.WriteLine("PlayerA requests to check hands. Do all players agree? Press 'Y' for yes, 'N' for no: ");
+                            var checkKey = Console.ReadKey(true).Key;
+
+                            if (checkKey == ConsoleKey.Y)
+                            {
+                                // Check hands and end the game
+                                break;
+                            }
+                            else if (checkKey == ConsoleKey.N)
+                            {
+                                // Continue the game
+                                Console.WriteLine("Not all players agree. The game continues.");
+                                Console.WriteLine("--------------------------------------------");
+                                continue;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Invalid input. Please try again.");
+                                Console.WriteLine("--------------------------------------------");
+                                continue;
+                            }
+                        }
                     }
 
-                    // Place H to hold the card
-                    else if (key == ConsoleKey.H)
+                    // PlayerB's turn
+                    while (playerBTotal < 50)
                     {
+                        if (playerBTotal > 50)
+                        {
+                            Console.WriteLine("PlayerB's total is now " + playerBTotal);
+                            break;
+                        }
+                        // Let player press each button to hand/draw/add bet
+                        Console.WriteLine("Press 'D' to draw another card, 'B' to add to your bet, 'H' to hold, or 'C' to check hands: "); var key = Console.ReadKey(true).Key;
 
-                        if (playerTotal < computerTotal)
+                        if (key != ConsoleKey.D && key != ConsoleKey.B && key != ConsoleKey.H && key != ConsoleKey.C)
                         {
-                            playerTotal += DrawCard(deck, randomCards, "You");
+                            Console.WriteLine("Invalid input. Please try again.");
+                            Console.WriteLine("--------------------------------------------");
+                            continue;
                         }
-                        // If computer hand is less, it need to draw one more card 
-                        if (computerTotal < playerTotal)
+
+                        if (key == ConsoleKey.B)
                         {
-                            computerTotal += DrawCard(deck, randomCards, "Computer");
+                            Console.Write("Enter your additional bet (limit " + betLimit + "): ");
+                            int additionalBet = int.Parse(Console.ReadLine());
+
+                            if (additionalBet > betLimit || additionalBet > playerBCoins - playerBBet)
+                            {
+                                Console.WriteLine("Invalid bet. Your additional bet is set to " + Math.Min(betLimit, playerBCoins - playerBBet));
+                                Console.WriteLine("--------------------------------------------");
+                                additionalBet = Math.Min(betLimit, playerBCoins - playerBBet);
+                            }
+                            playerBBet += additionalBet;
                         }
-                        break;
+                        // Place D to draw cards
+                        if (key == ConsoleKey.D)
+                        {
+                            playerBTotal += DrawCard(deck, randomCards, "PlayerB");
+                            Console.WriteLine("PlayerB's total is now " + playerBTotal);
+                            Console.WriteLine("--------------------------------------------");
+                            // End the round if player busted 
+                            if (playerBTotal > 50)
+                            {
+                                Console.WriteLine("PlayerB busted.");
+                                Console.WriteLine("--------------------------------------------");
+                                playerBCoins -= playerBBet;
+                                break;
+                            }
+                            break;
+                                }
+
+                        // Place H to hold the card
+                        if (key == ConsoleKey.H)
+                        {
+                            break; // PlayerB chooses to hold and ends their turn
+                        }
+                        if (key == ConsoleKey.C)
+                        {
+                            Console.WriteLine("PlayerB requests to check hands. Do all players agree? Press 'Y' for yes, 'N' for no: ");
+                            var checkKey = Console.ReadKey(true).Key;
+
+                            if (checkKey == ConsoleKey.Y)
+                            {
+                                // Check hands and end the game
+                                break;
+                            }
+                            else if (checkKey == ConsoleKey.N)
+                            {
+                                // Continue the game
+                                Console.WriteLine("Not all players agree. The game continues.");
+                                Console.WriteLine("--------------------------------------------");
+                                continue;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Invalid input. Please try again.");
+                                Console.WriteLine("--------------------------------------------");
+                                continue;
+                            }
+                        }
+                    }
+
+                    // PlayerC's turn
+                    while (playerCTotal < 50)
+                    {
+                        if (playerCTotal > 50)
+                        {
+                            Console.WriteLine("PlayerC's total is now " + playerCTotal);
+                            break;
+                        }
+                        // Let player press each button to hand/draw/add bet
+                        Console.WriteLine("Press 'D' to draw another card, 'B' to add to your bet, 'H' to hold, or 'C' to check hands: "); var key = Console.ReadKey(true).Key;
+
+                        if (key != ConsoleKey.D && key != ConsoleKey.B && key != ConsoleKey.H && key != ConsoleKey.C)
+                        {
+                            Console.WriteLine("Invalid input. Please try again.");
+                            Console.WriteLine("--------------------------------------------");
+                            continue;
+                        }
+
+                        if (key == ConsoleKey.B)
+                        {
+                            Console.Write("Enter your additional bet (limit " + betLimit + "): ");
+                            int additionalBet = int.Parse(Console.ReadLine());
+
+                            if (additionalBet > betLimit || additionalBet > playerCCoins - playerCBet)
+                            {
+                                Console.WriteLine("Invalid bet. Your additional bet is set to " + Math.Min(betLimit, playerCCoins - playerCBet));
+                                Console.WriteLine("--------------------------------------------");
+                                additionalBet = Math.Min(betLimit, playerCCoins - playerCBet);
+                            }
+                            playerCBet += additionalBet;
+                        }
+                        // Place D to draw cards
+                        if (key == ConsoleKey.D)
+                        {
+                            playerCTotal += DrawCard(deck, randomCards, "PlayerC");
+                            Console.WriteLine("PlayerC's total is now " + playerCTotal);
+                            Console.WriteLine("--------------------------------------------");
+                            // End the round if player busted 
+                            if (playerCTotal > 50)
+                            {
+                                Console.WriteLine("PlayerC busted.");
+                                Console.WriteLine("--------------------------------------------");
+                                playerCCoins -= playerCBet;
+                                break;
+                            }
+                            break;
+                        }
+
+                        // Place H to hold the card
+                        if (key == ConsoleKey.H)
+                        {
+                            break; // PlayerC chooses to hold and ends their turn
+                        }
+
+                        if (key == ConsoleKey.C)
+                        {
+                            Console.WriteLine("PlayerC requests to check hands. Do all players agree? Press 'Y' for yes, 'N' for no: ");
+                            var checkKey = Console.ReadKey(true).Key;
+
+                            if (checkKey == ConsoleKey.Y)
+                            {
+                                // Check hands and end the game
+                                break;
+                            }
+                            else if (checkKey == ConsoleKey.N)
+                            {
+                                // Continue the game
+                                Console.WriteLine("Not all players agree. The game continues.");
+                                Console.WriteLine("--------------------------------------------");
+                                continue;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Invalid input. Please try again.");
+                                Console.WriteLine("--------------------------------------------");
+                                continue;
+                            }
+                        }
+                    }
+
+                    // PlayerD's turn
+                    while (playerDTotal < 50)
+                    {
+                        if (playerDTotal > 50)
+                        {
+                            Console.WriteLine("PlayerD's total is now " + playerDTotal);
+                            break;
+                        }
+                        // Let player press each button to hand/draw/add bet
+                        Console.WriteLine("Press 'D' to draw another card, 'B' to add to your bet, 'H' to hold, or 'C' to check hands: "); var key = Console.ReadKey(true).Key;
+
+                        if (key != ConsoleKey.D && key != ConsoleKey.B && key != ConsoleKey.H && key != ConsoleKey.C)
+                        {
+                            Console.WriteLine("Invalid input. Please try again.");
+                            Console.WriteLine("--------------------------------------------");
+                            continue;
+                        }
+
+                        if (key == ConsoleKey.B)
+                        {
+                            Console.Write("Enter your additional bet (limit " + betLimit + "): ");
+                            int additionalBet = int.Parse(Console.ReadLine());
+
+                            if (additionalBet > betLimit || additionalBet > playerDCoins - playerDBet)
+                            {
+                                Console.WriteLine("Invalid bet. Your additional bet is set to " + Math.Min(betLimit, playerDCoins - playerDBet));
+                                Console.WriteLine("--------------------------------------------");
+                                additionalBet = Math.Min(betLimit, playerDCoins - playerDBet);
+                            }
+                            playerDBet += additionalBet;
+                        }
+                        // Place D to draw cards
+                        if (key == ConsoleKey.D)
+                        {
+                            playerDTotal += DrawCard(deck, randomCards, "PlayerD");
+                            Console.WriteLine("PlayerD's total is now " + playerDTotal);
+                            Console.WriteLine("--------------------------------------------");
+                            // End the round if player busted 
+                            if (playerDTotal > 50)
+                            {
+                                Console.WriteLine("PlayerD busted.");
+                                Console.WriteLine("--------------------------------------------");
+                                playerDCoins -= playerDBet;
+                                break;
+                            }
+                            break;
+                        }
+
+                        // Place H to hold the card
+                        if (key == ConsoleKey.H)
+                        {
+                            break; // PlayerD chooses to hold and ends their turn
+                        }
+                        if (key == ConsoleKey.C)
+                        {
+                            Console.WriteLine("PlayerD requests to check hands. Do all players agree? Press 'Y' for yes, 'N' for no: ");
+                            var checkKey = Console.ReadKey(true).Key;
+
+                            if (checkKey == ConsoleKey.Y)
+                            {
+                                // Check hands and end the game
+                                break;
+                            }
+                            else if (checkKey == ConsoleKey.N)
+                            {
+                                // Continue the game
+                                Console.WriteLine("Not all players agree. The game continues.");
+                                Console.WriteLine("--------------------------------------------");
+                                continue;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Invalid input. Please try again.");
+                                Console.WriteLine("--------------------------------------------");
+                                continue;
+                            }
+                        }
                     }
                 }
-
                 // Add score and bet coins after each round
-                // Check for busts after all drawing is done
-                if (playerTotal > 50)   // Special Rule Player busted (for final result)
+                if (playerATotal > 50)
                 {
-                    Console.WriteLine("You busted. Computer gets the bet.");
+                    Console.WriteLine("PlayerA busted.");
                     Console.WriteLine("--------------------------------------------");
-                    playerCoins -= playerBet;
-                    computerCoins += playerBet;
-                    computerPoints += 10;
+                    playerACoins -= playerABet;
                 }
-                else if (computerTotal > 50)
+                else if (playerBTotal > 50)
                 {
-                    Console.WriteLine("Computer busted. You wins!");
+                    Console.WriteLine("PlayerB busted.");
                     Console.WriteLine("--------------------------------------------");
-                    playerCoins += computerBet;
-                    computerCoins -= computerBet;
-                    playerPoints += 10;
+                    playerBCoins -= playerBBet;
                 }
-                // Player win the round and get coins and scores
-                else if (playerTotal > computerTotal)
+                else if (playerCTotal > 50)
                 {
-                    Console.WriteLine("You win this round! ");
+                    Console.WriteLine("PlayerC busted.");
                     Console.WriteLine("--------------------------------------------");
-                    playerCoins += computerBet;
-                    computerCoins -= computerBet;
-                    playerPoints += 10;
+                    playerCCoins -= playerCBet;
                 }
-                // Computer win the round and get coins and scores
-                else if (playerTotal < computerTotal)
+                else if (playerDTotal > 50)
                 {
-                    Console.WriteLine("Computer wins this round!");
+                    Console.WriteLine("PlayerD busted.");
                     Console.WriteLine("--------------------------------------------");
-                    playerCoins -= playerBet;
-                    computerCoins += playerBet;
-                    computerPoints += 10;
+                    playerDCoins -= playerDBet;
                 }
                 else
                 {
-                    Console.WriteLine("It's a draw! No one wins the bet.");
-                    Console.WriteLine("--------------------------------------------");
+                    int maxPoints = Math.Max(Math.Max(playerATotal, playerBTotal), Math.Max(playerCTotal, playerDTotal));
+                    if (playerATotal == maxPoints)
+                    {
+                        Console.WriteLine("PlayerA wins this round!");
+                        Console.WriteLine("--------------------------------------------");
+                        playerACoins += playerBBet + playerCBet + playerDBet;
+                        playerAPoints += 10;
+                    }
+                    if (playerBTotal == maxPoints)
+                    {
+                        Console.WriteLine("PlayerB wins this round!");
+                        Console.WriteLine("--------------------------------------------");
+                        playerBCoins += playerABet + playerCBet + playerDBet;
+                        playerBPoints += 10;
+                    }
+                    if (playerCTotal == maxPoints)
+                    {
+                        Console.WriteLine("PlayerC wins this round!");
+                        Console.WriteLine("--------------------------------------------");
+                        playerCCoins += playerABet + playerBBet + playerDBet;
+                        playerCPoints += 10;
+                    }
+                    if (playerDTotal == maxPoints)
+                    {
+                        Console.WriteLine("PlayerD wins this round!");
+                        Console.WriteLine("--------------------------------------------");
+                        playerDCoins += playerABet + playerBBet + playerCBet;
+                        playerDPoints += 10;
+                    }
                 }
-                // Reference:https://blog.csdn.net/weixin_43328198/article/details/85311232
-                Console.WriteLine($"Score: You - {playerPoints}, Computer - {computerPoints}");
-                Console.WriteLine($"Coins: You - {playerCoins}, Computer - {computerCoins}");
+                Console.WriteLine($"Score: PlayerA - {playerAPoints}, PlayerB - {playerBPoints}, PlayerC - {playerCPoints}, PlayerD - {playerDPoints}");
+                Console.WriteLine($"Coins: PlayerA - {playerACoins}, PlayerB - {playerBCoins}, PlayerC - {playerCCoins}, PlayerD - {playerDCoins}");
                 Console.WriteLine("--------------------------------------------");
 
                 // Win condition
-                if (playerPoints >= 100 || computerCoins < 0)
+                int activePlayers = 4;
+                if (playerACoins <= 0) activePlayers--;
+                if (playerBCoins <= 0) activePlayers--;
+                if (playerCCoins <= 0) activePlayers--;
+                if (playerDCoins <= 0) activePlayers--;
+
+                if (activePlayers == 1 || playerAPoints >= 100 || playerBPoints >= 100 || playerCPoints >= 100 || playerDPoints >= 100)
                 {
-                    Console.WriteLine("You win the game!");
-                    break;
-                }
-                else if (computerPoints >= 100 || playerCoins < 0)
-                {
-                    Console.WriteLine("Computer wins the game!");
-                    break;
+                    if (playerACoins > 0 && playerAPoints >= 100)
+                    {
+                        Console.WriteLine("PlayerA wins the game!");
+                        break;
+                    }
+                    else if (playerBCoins > 0 && playerBPoints >= 100)
+                    {
+                        Console.WriteLine("PlayerB wins the game!");
+                        break;
+                    }
+                    else if (playerCCoins > 0 && playerCPoints >= 100)
+                    {
+                        Console.WriteLine("PlayerC wins the game!");
+                        break;
+                    }
+                    else if (playerDCoins > 0 && playerDPoints >= 100)
+                    {
+                        Console.WriteLine("PlayerD wins the game!");
+                        break;
+                    }
                 }
             }
         }
@@ -230,22 +519,37 @@ namespace _6308_Midterm_BlackJack
         // Reference:https://stackoverflow.com/questions/13038026/randomly-drawing-5-cards-from-a-deck-in-java
         static int DrawCard(List<string> deck, Random randomCards, string player)
         {
-            string card = deck[randomCards.Next(deck.Count)];
+            if (deck.Count == 0)
+            {
+                Console.WriteLine("Deck is empty!");
+                return 0;
+            }
 
-            Console.WriteLine(player + " drew a " + card);
+            int cardIndex = randomCards.Next(deck.Count);
+            string card = deck[cardIndex];
+            deck.RemoveAt(cardIndex);
+
+            // Split the card into suit and rank
+            string[] parts = card.Split(' ');
+            string suit = parts[0];
+            string rank = parts[1];
+
+            Console.WriteLine(player + " drew a " + suit + " " + rank);
+
             // Ace should be a value of 11
-            if (card == "A")
+            if (rank == "A")
             {
                 return 11;
             }
-            else if (card == "J" || card == "Q" || card == "K")
+            else if (rank == "J" || rank == "Q" || rank == "K")
             {
                 return 10;
             }
             else
             {
-                return int.Parse(card);
+                return int.Parse(rank);
             }
         }
+
     }
 }
