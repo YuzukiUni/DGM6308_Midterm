@@ -23,8 +23,8 @@ namespace _6308_Midterm_BlackJack
             }
 
             Random randomCards = new Random();
-            int playerAPoints = 0, playerBPoints = 0, playerCPoints = 0,  playerDPoints=0;
-            int playerACoins = 100, playerBCoins = 100, playerCCoins = 100, playerDCoins =100 ;
+            int playerAPoints = 0, playerBPoints = 0, playerCPoints = 0, playerDPoints = 0;
+            int playerACoins = 100, playerBCoins = 100, playerCCoins = 100, playerDCoins = 100;
             int round = 0;
 
             while (true)
@@ -87,7 +87,7 @@ namespace _6308_Midterm_BlackJack
                 Console.WriteLine("PlayerD's bet is " + playerDBet);
 
 
-                int playerATotal = 0, playerBTotal = 0, playerCTotal = 0, playerDTotal=0;
+                int playerATotal = 0, playerBTotal = 0, playerCTotal = 0, playerDTotal = 0;
 
                 playerATotal += DrawCard(deck, randomCards, "PlayerA");
                 playerBTotal += DrawCard(deck, randomCards, "PlayerB");
@@ -102,17 +102,14 @@ namespace _6308_Midterm_BlackJack
                 Console.WriteLine("PlayerD's total is " + playerDTotal);
                 Console.WriteLine("--------------------------------------------");
 
-               
-                while (true)
+
+                bool gameContinue = true;
+                while (gameContinue)
                 {
                     // PlayerA's Turn
-                    while (playerATotal < 50)
+                    while (playerATotal < 21)
                     {
-                        if (playerATotal > 50)
-                        {
-                            Console.WriteLine("PlayerA's total is now " + playerATotal);
-                            break;
-                        }
+                        gameContinue = true;
                         // Let player press each button to hand/draw/add bet
                         Console.WriteLine("Press 'D' to draw another card, 'B' to add to your bet, 'H' to hold, or 'C' to check hands: "); var key = Console.ReadKey(true).Key;
 
@@ -143,19 +140,24 @@ namespace _6308_Midterm_BlackJack
                             Console.WriteLine("PlayerA's total is now " + playerATotal);
                             Console.WriteLine("--------------------------------------------");
                             // End the round if player busted 
-                            if (playerATotal > 50)
+                            if (playerATotal > 21)
                             {
                                 Console.WriteLine("PlayerA busted.");
                                 Console.WriteLine("--------------------------------------------");
-                                playerACoins -= playerABet;
+                                gameContinue = false;
                                 break;
                             }
-                            break;
+                           if(!gameContinue)
+                                break;
                         }
 
                         // Place H to hold the card
                         if (key == ConsoleKey.H)
                         {
+                            Console.WriteLine("--------------------------------------------");
+                            Console.WriteLine("Player A hold the hand");
+                            Console.WriteLine("--------------------------------------------");
+                            gameContinue = false;
                             break; // PlayerA chooses to hold and ends their turn
                         }
                         if (key == ConsoleKey.C)
@@ -165,6 +167,7 @@ namespace _6308_Midterm_BlackJack
 
                             if (checkKey == ConsoleKey.Y)
                             {
+                             
                                 // Check hands and end the game
                                 break;
                             }
@@ -185,13 +188,9 @@ namespace _6308_Midterm_BlackJack
                     }
 
                     // PlayerB's turn
-                    while (playerBTotal < 50)
+                    while (playerBTotal < 21)
                     {
-                        if (playerBTotal > 50)
-                        {
-                            Console.WriteLine("PlayerB's total is now " + playerBTotal);
-                            break;
-                        }
+                        gameContinue = true;
                         // Let player press each button to hand/draw/add bet
                         Console.WriteLine("Press 'D' to draw another card, 'B' to add to your bet, 'H' to hold, or 'C' to check hands: "); var key = Console.ReadKey(true).Key;
 
@@ -222,19 +221,24 @@ namespace _6308_Midterm_BlackJack
                             Console.WriteLine("PlayerB's total is now " + playerBTotal);
                             Console.WriteLine("--------------------------------------------");
                             // End the round if player busted 
-                            if (playerBTotal > 50)
+                            if (playerBTotal > 21)
                             {
                                 Console.WriteLine("PlayerB busted.");
                                 Console.WriteLine("--------------------------------------------");
-                                playerBCoins -= playerBBet;
+                                gameContinue =false;
                                 break;
                             }
-                            break;
-                                }
+                            if (!gameContinue)
+                                break;
+                        }
 
                         // Place H to hold the card
                         if (key == ConsoleKey.H)
                         {
+                            Console.WriteLine("--------------------------------------------");
+                            Console.WriteLine("Player B hold the hand");
+                            Console.WriteLine("--------------------------------------------");
+                            gameContinue = false;
                             break; // PlayerB chooses to hold and ends their turn
                         }
                         if (key == ConsoleKey.C)
@@ -264,13 +268,9 @@ namespace _6308_Midterm_BlackJack
                     }
 
                     // PlayerC's turn
-                    while (playerCTotal < 50)
+                    while (playerCTotal < 21)
                     {
-                        if (playerCTotal > 50)
-                        {
-                            Console.WriteLine("PlayerC's total is now " + playerCTotal);
-                            break;
-                        }
+                        gameContinue = true;
                         // Let player press each button to hand/draw/add bet
                         Console.WriteLine("Press 'D' to draw another card, 'B' to add to your bet, 'H' to hold, or 'C' to check hands: "); var key = Console.ReadKey(true).Key;
 
@@ -301,19 +301,24 @@ namespace _6308_Midterm_BlackJack
                             Console.WriteLine("PlayerC's total is now " + playerCTotal);
                             Console.WriteLine("--------------------------------------------");
                             // End the round if player busted 
-                            if (playerCTotal > 50)
+                            if (playerCTotal > 21)
                             {
                                 Console.WriteLine("PlayerC busted.");
                                 Console.WriteLine("--------------------------------------------");
-                                playerCCoins -= playerCBet;
+                                gameContinue =false;
                                 break;
                             }
-                            break;
+                            if (!gameContinue)
+                                break;
                         }
 
                         // Place H to hold the card
                         if (key == ConsoleKey.H)
                         {
+                            Console.WriteLine("--------------------------------------------");
+                            Console.WriteLine("Player C hold the hand");
+                            Console.WriteLine("--------------------------------------------");
+                            gameContinue = false;
                             break; // PlayerC chooses to hold and ends their turn
                         }
 
@@ -344,13 +349,9 @@ namespace _6308_Midterm_BlackJack
                     }
 
                     // PlayerD's turn
-                    while (playerDTotal < 50)
+                    while (playerDTotal < 21)
                     {
-                        if (playerDTotal > 50)
-                        {
-                            Console.WriteLine("PlayerD's total is now " + playerDTotal);
-                            break;
-                        }
+                        gameContinue = true;
                         // Let player press each button to hand/draw/add bet
                         Console.WriteLine("Press 'D' to draw another card, 'B' to add to your bet, 'H' to hold, or 'C' to check hands: "); var key = Console.ReadKey(true).Key;
 
@@ -381,19 +382,21 @@ namespace _6308_Midterm_BlackJack
                             Console.WriteLine("PlayerD's total is now " + playerDTotal);
                             Console.WriteLine("--------------------------------------------");
                             // End the round if player busted 
-                            if (playerDTotal > 50)
+                            if (playerDTotal > 21)
                             {
                                 Console.WriteLine("PlayerD busted.");
                                 Console.WriteLine("--------------------------------------------");
-                                playerDCoins -= playerDBet;
+                                gameContinue = false;
                                 break;
                             }
-                            break;
+                            if (!gameContinue)
+                                break;
                         }
 
                         // Place H to hold the card
                         if (key == ConsoleKey.H)
                         {
+                            gameContinue = false;
                             break; // PlayerD chooses to hold and ends their turn
                         }
                         if (key == ConsoleKey.C)
@@ -422,66 +425,104 @@ namespace _6308_Midterm_BlackJack
                         }
                     }
                 }
+
                 // Add score and bet coins after each round
-                if (playerATotal > 50)
+                bool playerABusted = false;
+                bool playerBBusted = false;
+                bool playerCBusted = false;
+                bool playerDBusted = false;
+                if (playerATotal > 21)
                 {
                     Console.WriteLine("PlayerA busted.");
                     Console.WriteLine("--------------------------------------------");
-                    playerACoins -= playerABet;
+                    playerABusted = true;
                 }
-                else if (playerBTotal > 50)
+
+                if (playerBTotal > 21)
                 {
                     Console.WriteLine("PlayerB busted.");
                     Console.WriteLine("--------------------------------------------");
-                    playerBCoins -= playerBBet;
+                    playerBBusted = true;
                 }
-                else if (playerCTotal > 50)
+
+                if (playerCTotal > 21)
                 {
                     Console.WriteLine("PlayerC busted.");
                     Console.WriteLine("--------------------------------------------");
-                    playerCCoins -= playerCBet;
+                    playerCBusted = true;
                 }
-                else if (playerDTotal > 50)
+
+                if (playerDTotal > 21)
                 {
                     Console.WriteLine("PlayerD busted.");
                     Console.WriteLine("--------------------------------------------");
-                    playerDCoins -= playerDBet;
+                    playerDBusted = true;
                 }
-                else
-                {
-                    int maxPoints = Math.Max(Math.Max(playerATotal, playerBTotal), Math.Max(playerCTotal, playerDTotal));
+
+
+                int maxPoints = 0;
+                    if (!playerABusted) maxPoints = Math.Max(maxPoints, playerATotal);
+                    if (!playerBBusted) maxPoints = Math.Max(maxPoints, playerBTotal);
+                    if (!playerCBusted) maxPoints = Math.Max(maxPoints, playerCTotal);
+                    if (!playerDBusted) maxPoints = Math.Max(maxPoints, playerDTotal); 
+                    List<string> winners = new List<string>();
                     if (playerATotal == maxPoints)
                     {
-                        Console.WriteLine("PlayerA wins this round!");
-                        Console.WriteLine("--------------------------------------------");
-                        playerACoins += playerBBet + playerCBet + playerDBet;
+                        winners.Add("PlayerA");
                         playerAPoints += 10;
                     }
                     if (playerBTotal == maxPoints)
                     {
-                        Console.WriteLine("PlayerB wins this round!");
-                        Console.WriteLine("--------------------------------------------");
-                        playerBCoins += playerABet + playerCBet + playerDBet;
+                        winners.Add("PlayerB");
                         playerBPoints += 10;
                     }
                     if (playerCTotal == maxPoints)
                     {
-                        Console.WriteLine("PlayerC wins this round!");
-                        Console.WriteLine("--------------------------------------------");
-                        playerCCoins += playerABet + playerBBet + playerDBet;
+                        winners.Add("PlayerC");
                         playerCPoints += 10;
                     }
                     if (playerDTotal == maxPoints)
                     {
-                        Console.WriteLine("PlayerD wins this round!");
-                        Console.WriteLine("--------------------------------------------");
-                        playerDCoins += playerABet + playerBBet + playerCBet;
+                        winners.Add("PlayerD");
                         playerDPoints += 10;
                     }
-                }
-                Console.WriteLine($"Score: PlayerA - {playerAPoints}, PlayerB - {playerBPoints}, PlayerC - {playerCPoints}, PlayerD - {playerDPoints}");
-                Console.WriteLine($"Coins: PlayerA - {playerACoins}, PlayerB - {playerBCoins}, PlayerC - {playerCCoins}, PlayerD - {playerDCoins}");
-                Console.WriteLine("--------------------------------------------");
+
+                    int totalBet = playerABet + playerBBet + playerCBet + playerDBet;
+
+                    playerACoins -= playerABet;
+                    playerBCoins -= playerBBet;
+                    playerCCoins -= playerCBet;
+                    playerDCoins -= playerDBet;
+
+                    if (winners.Count == 1)
+                    {
+                        string winner = winners[0];
+                        Console.WriteLine($"{winner} wins this round!");
+                        Console.WriteLine("--------------------------------------------");
+                        if (winner == "PlayerA") playerACoins += totalBet;
+                        if (winner == "PlayerB") playerBCoins += totalBet;
+                        if (winner == "PlayerC") playerCCoins += totalBet;
+                        if (winner == "PlayerD") playerDCoins += totalBet;
+                    }
+                    else
+                    {
+                        int share = totalBet / winners.Count;
+                        foreach (string winner in winners)
+                        {
+                            Console.WriteLine($"{winner} wins this round!");
+                            Console.WriteLine("--------------------------------------------");
+                            if (winner == "PlayerA") playerACoins += share;
+                            if (winner == "PlayerB") playerBCoins += share;
+                            if (winner == "PlayerC") playerCCoins += share;
+                            if (winner == "PlayerD") playerDCoins += share;
+                        }
+                    }
+
+                    Console.WriteLine($"Score: PlayerA - {playerAPoints}, PlayerB - {playerBPoints}, PlayerC - {playerCPoints}, PlayerD - {playerDPoints}");
+                    Console.WriteLine($"Coins: PlayerA - {playerACoins}, PlayerB - {playerBCoins}, PlayerC - {playerCCoins}, PlayerD - {playerDCoins}");
+                    Console.WriteLine("--------------------------------------------");
+                
+
 
                 // Win condition
                 int activePlayers = 4;
@@ -490,32 +531,39 @@ namespace _6308_Midterm_BlackJack
                 if (playerCCoins <= 0) activePlayers--;
                 if (playerDCoins <= 0) activePlayers--;
 
-                if (activePlayers == 1 || playerAPoints >= 100 || playerBPoints >= 100 || playerCPoints >= 100 || playerDPoints >= 100)
+                if (activePlayers == 1 || playerAPoints >= 50 || playerBPoints >= 50 || playerCPoints >= 50 || playerDPoints >= 50)
                 {
-                    if (playerACoins > 0 && playerAPoints >= 100)
+                    Dictionary<string, int> players = new Dictionary<string, int>()
+            {
+                     {"PlayerA", playerAPoints},
+                     {"PlayerB", playerBPoints},
+                     {"PlayerC", playerCPoints},
+                     {"PlayerD", playerDPoints}
+             };
+
+                    var sortedPlayers = from player in players
+                                        orderby player.Value descending
+                                        select player;
+
+                    int rank = 1;
+                    foreach (var player in sortedPlayers)
                     {
-                        Console.WriteLine("PlayerA wins the game!");
-                        break;
+                        if (rank == 1)
+                        {
+                            Console.WriteLine(player.Key + " wins the game!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Rank " + rank + ": " + player.Key + " with " + player.Value + " points");
+                        }
+                        rank++;
                     }
-                    else if (playerBCoins > 0 && playerBPoints >= 100)
-                    {
-                        Console.WriteLine("PlayerB wins the game!");
-                        break;
-                    }
-                    else if (playerCCoins > 0 && playerCPoints >= 100)
-                    {
-                        Console.WriteLine("PlayerC wins the game!");
-                        break;
-                    }
-                    else if (playerDCoins > 0 && playerDPoints >= 100)
-                    {
-                        Console.WriteLine("PlayerD wins the game!");
-                        break;
-                    }
-                }
+                    break;
+                
+            }
             }
         }
-
+       
         // Reference:https://stackoverflow.com/questions/13038026/randomly-drawing-5-cards-from-a-deck-in-java
         static int DrawCard(List<string> deck, Random randomCards, string player)
         {
@@ -550,6 +598,5 @@ namespace _6308_Midterm_BlackJack
                 return int.Parse(rank);
             }
         }
-
     }
 }
