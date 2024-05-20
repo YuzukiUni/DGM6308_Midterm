@@ -443,6 +443,7 @@ namespace _6308_Midterm_BlackJack
                      {"PlayerD", playerDPoints}
                     };
 
+                    // Reference:https://blog.csdn.net/qq_39108767/article/details/86648448
                     var sortedPlayers = from player in players
                                         orderby player.Value descending
                                         select player;
