@@ -10,18 +10,8 @@ namespace _6308_Midterm_BlackJack
     {
         static void Main(string[] args)
         {
-            // Initialize the deck of 52 cards
-            List<string> suits = new List<string> { "spades", "hearts", "clubs", "diamonds" };
-            List<string> ranks = new List<string> { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K" };
             List<string> deck = new List<string>();
-            foreach (string suit in suits)
-            {
-                foreach (string rank in ranks)
-                {
-                    deck.Add(suit + " " + rank);
-                }
-            }
-
+            Deck(deck);
             Random randomCards = new Random();
             int playerAPoints = 0, playerBPoints = 0, playerCPoints = 0, playerDPoints = 0;
             int playerACoins = 100, playerBCoins = 100, playerCCoins = 100, playerDCoins = 100;
@@ -111,8 +101,9 @@ namespace _6308_Midterm_BlackJack
                     {
                         gameContinue = true;
                         // Let player press each button to hand/draw/add bet
-                        Console.WriteLine("Press 'D' to draw another card, 'B' to add to your bet, 'H' to hold, or 'C' to check hands: "); var key = Console.ReadKey(true).Key;
-
+                        Console.WriteLine("--------------------------------------------");
+                        Console.WriteLine("Press 'D' to draw another card, 'B' to add to your bet, 'H' to hold: "); var key = Console.ReadKey(true).Key;
+                        Console.WriteLine("--------------------------------------------");
                         if (key != ConsoleKey.D && key != ConsoleKey.B && key != ConsoleKey.H && key != ConsoleKey.C)
                         {
                             Console.WriteLine("Invalid input. Please try again.");
@@ -160,31 +151,7 @@ namespace _6308_Midterm_BlackJack
                             gameContinue = false;
                             break; // PlayerA chooses to hold and ends their turn
                         }
-                        if (key == ConsoleKey.C)
-                        {
-                            Console.WriteLine("PlayerA requests to check hands. Do all players agree? Press 'Y' for yes, 'N' for no: ");
-                            var checkKey = Console.ReadKey(true).Key;
-
-                            if (checkKey == ConsoleKey.Y)
-                            {
-                             
-                                // Check hands and end the game
-                                break;
-                            }
-                            else if (checkKey == ConsoleKey.N)
-                            {
-                                // Continue the game
-                                Console.WriteLine("Not all players agree. The game continues.");
-                                Console.WriteLine("--------------------------------------------");
-                                continue;
-                            }
-                            else
-                            {
-                                Console.WriteLine("Invalid input. Please try again.");
-                                Console.WriteLine("--------------------------------------------");
-                                continue;
-                            }
-                        }
+                        
                     }
 
                     // PlayerB's turn
@@ -192,7 +159,9 @@ namespace _6308_Midterm_BlackJack
                     {
                         gameContinue = true;
                         // Let player press each button to hand/draw/add bet
-                        Console.WriteLine("Press 'D' to draw another card, 'B' to add to your bet, 'H' to hold, or 'C' to check hands: "); var key = Console.ReadKey(true).Key;
+                        Console.WriteLine("--------------------------------------------");
+                        Console.WriteLine("Press 'D' to draw another card, 'B' to add to your bet, 'H' to hold: "); var key = Console.ReadKey(true).Key;
+                        Console.WriteLine("--------------------------------------------");
 
                         if (key != ConsoleKey.D && key != ConsoleKey.B && key != ConsoleKey.H && key != ConsoleKey.C)
                         {
@@ -241,30 +210,7 @@ namespace _6308_Midterm_BlackJack
                             gameContinue = false;
                             break; // PlayerB chooses to hold and ends their turn
                         }
-                        if (key == ConsoleKey.C)
-                        {
-                            Console.WriteLine("PlayerB requests to check hands. Do all players agree? Press 'Y' for yes, 'N' for no: ");
-                            var checkKey = Console.ReadKey(true).Key;
-
-                            if (checkKey == ConsoleKey.Y)
-                            {
-                                // Check hands and end the game
-                                break;
-                            }
-                            else if (checkKey == ConsoleKey.N)
-                            {
-                                // Continue the game
-                                Console.WriteLine("Not all players agree. The game continues.");
-                                Console.WriteLine("--------------------------------------------");
-                                continue;
-                            }
-                            else
-                            {
-                                Console.WriteLine("Invalid input. Please try again.");
-                                Console.WriteLine("--------------------------------------------");
-                                continue;
-                            }
-                        }
+                       
                     }
 
                     // PlayerC's turn
@@ -272,8 +218,9 @@ namespace _6308_Midterm_BlackJack
                     {
                         gameContinue = true;
                         // Let player press each button to hand/draw/add bet
-                        Console.WriteLine("Press 'D' to draw another card, 'B' to add to your bet, 'H' to hold, or 'C' to check hands: "); var key = Console.ReadKey(true).Key;
-
+                        Console.WriteLine("--------------------------------------------");
+                        Console.WriteLine("Press 'D' to draw another card, 'B' to add to your bet, 'H' to hold: "); var key = Console.ReadKey(true).Key;
+                        Console.WriteLine("--------------------------------------------");
                         if (key != ConsoleKey.D && key != ConsoleKey.B && key != ConsoleKey.H && key != ConsoleKey.C)
                         {
                             Console.WriteLine("Invalid input. Please try again.");
@@ -322,30 +269,7 @@ namespace _6308_Midterm_BlackJack
                             break; // PlayerC chooses to hold and ends their turn
                         }
 
-                        if (key == ConsoleKey.C)
-                        {
-                            Console.WriteLine("PlayerC requests to check hands. Do all players agree? Press 'Y' for yes, 'N' for no: ");
-                            var checkKey = Console.ReadKey(true).Key;
-
-                            if (checkKey == ConsoleKey.Y)
-                            {
-                                // Check hands and end the game
-                                break;
-                            }
-                            else if (checkKey == ConsoleKey.N)
-                            {
-                                // Continue the game
-                                Console.WriteLine("Not all players agree. The game continues.");
-                                Console.WriteLine("--------------------------------------------");
-                                continue;
-                            }
-                            else
-                            {
-                                Console.WriteLine("Invalid input. Please try again.");
-                                Console.WriteLine("--------------------------------------------");
-                                continue;
-                            }
-                        }
+                       
                     }
 
                     // PlayerD's turn
@@ -353,8 +277,9 @@ namespace _6308_Midterm_BlackJack
                     {
                         gameContinue = true;
                         // Let player press each button to hand/draw/add bet
-                        Console.WriteLine("Press 'D' to draw another card, 'B' to add to your bet, 'H' to hold, or 'C' to check hands: "); var key = Console.ReadKey(true).Key;
-
+                        Console.WriteLine("--------------------------------------------");
+                        Console.WriteLine("Press 'D' to draw another card, 'B' to add to your bet, 'H' to hold: "); var key = Console.ReadKey(true).Key;
+                        Console.WriteLine("--------------------------------------------");
                         if (key != ConsoleKey.D && key != ConsoleKey.B && key != ConsoleKey.H && key != ConsoleKey.C)
                         {
                             Console.WriteLine("Invalid input. Please try again.");
@@ -399,30 +324,7 @@ namespace _6308_Midterm_BlackJack
                             gameContinue = false;
                             break; // PlayerD chooses to hold and ends their turn
                         }
-                        if (key == ConsoleKey.C)
-                        {
-                            Console.WriteLine("PlayerD requests to check hands. Do all players agree? Press 'Y' for yes, 'N' for no: ");
-                            var checkKey = Console.ReadKey(true).Key;
-
-                            if (checkKey == ConsoleKey.Y)
-                            {
-                                // Check hands and end the game
-                                break;
-                            }
-                            else if (checkKey == ConsoleKey.N)
-                            {
-                                // Continue the game
-                                Console.WriteLine("Not all players agree. The game continues.");
-                                Console.WriteLine("--------------------------------------------");
-                                continue;
-                            }
-                            else
-                            {
-                                Console.WriteLine("Invalid input. Please try again.");
-                                Console.WriteLine("--------------------------------------------");
-                                continue;
-                            }
-                        }
+                       
                     }
                 }
 
@@ -534,12 +436,12 @@ namespace _6308_Midterm_BlackJack
                 if (activePlayers == 1 || playerAPoints >= 50 || playerBPoints >= 50 || playerCPoints >= 50 || playerDPoints >= 50)
                 {
                     Dictionary<string, int> players = new Dictionary<string, int>()
-            {
+                    {
                      {"PlayerA", playerAPoints},
                      {"PlayerB", playerBPoints},
                      {"PlayerC", playerCPoints},
                      {"PlayerD", playerDPoints}
-             };
+                    };
 
                     var sortedPlayers = from player in players
                                         orderby player.Value descending
@@ -563,14 +465,18 @@ namespace _6308_Midterm_BlackJack
             }
             }
         }
-       
+
         // Reference:https://stackoverflow.com/questions/13038026/randomly-drawing-5-cards-from-a-deck-in-java
+        // Drawing card from a deck
         static int DrawCard(List<string> deck, Random randomCards, string player)
         {
+            // If the deck is empty, reshuffling deck
             if (deck.Count == 0)
             {
-                Console.WriteLine("Deck is empty!");
-                return 0;
+                Console.WriteLine("--------------------------------------------");
+                Console.WriteLine("Deck is empty! Reshuffling the deck ");
+                Console.WriteLine("--------------------------------------------");
+                Deck(deck);
             }
 
             int cardIndex = randomCards.Next(deck.Count);
@@ -598,5 +504,23 @@ namespace _6308_Midterm_BlackJack
                 return int.Parse(rank);
             }
         }
+
+        // Starting deck of 52 cards, if cards empty, reuse this deck by reshuffling
+        static void Deck(List<string> deck)
+        {
+            List<string> suits = new List<string> { "spades", "hearts", "clubs", "diamonds" };
+            List<string> ranks = new List<string> { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K" };
+
+            deck.Clear();
+            foreach (string suit in suits)
+            {
+                foreach (string rank in ranks)
+                {
+                    deck.Add(suit + " " + rank);
+                }
+            }
+        }
+
+       
     }
 }
