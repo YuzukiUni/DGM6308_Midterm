@@ -1,0 +1,7 @@
+C:\Users\unila\OneDrive\Documents\GitHub\DGM6308_Midterm\6308 BlackJack Midterm Ver.B\6308 BlackJack Midterm Ver.B\bin\Debug\6308 BlackJack Midterm Ver.B.exe.config
+C:\Users\unila\OneDrive\Documents\GitHub\DGM6308_Midterm\6308 BlackJack Midterm Ver.B\6308 BlackJack Midterm Ver.B\bin\Debug\6308 BlackJack Midterm Ver.B.exe
+C:\Users\unila\OneDrive\Documents\GitHub\DGM6308_Midterm\6308 BlackJack Midterm Ver.B\6308 BlackJack Midterm Ver.B\bin\Debug\6308 BlackJack Midterm Ver.B.pdb
+C:\Users\unila\OneDrive\Documents\GitHub\DGM6308_Midterm\6308 BlackJack Midterm Ver.B\6308 BlackJack Midterm Ver.B\obj\Debug\6308 BlackJack Midterm Ver.B.csproj.AssemblyReference.cache
+C:\Users\unila\OneDrive\Documents\GitHub\DGM6308_Midterm\6308 BlackJack Midterm Ver.B\6308 BlackJack Midterm Ver.B\obj\Debug\6308 BlackJack Midterm Ver.B.csproj.CoreCompileInputs.cache
+C:\Users\unila\OneDrive\Documents\GitHub\DGM6308_Midterm\6308 BlackJack Midterm Ver.B\6308 BlackJack Midterm Ver.B\obj\Debug\6308 BlackJack Midterm Ver.B.exe
+C:\Users\unila\OneDrive\Documents\GitHub\DGM6308_Midterm\6308 BlackJack Midterm Ver.B\6308 BlackJack Midterm Ver.B\obj\Debug\6308 BlackJack Midterm Ver.B.pdb

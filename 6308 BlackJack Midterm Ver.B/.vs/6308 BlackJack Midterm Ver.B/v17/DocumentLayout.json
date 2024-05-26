@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\unila\\OneDrive\\Documents\\GitHub\\DGM6308_Midterm\\6308 BlackJack Midterm Ver.B\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{9E346AAA-8804-4061-81BF-795D6FA1C0C5}|6308 BlackJack Midterm Ver.B\\6308 BlackJack Midterm Ver.B.csproj|c:\\users\\unila\\onedrive\\documents\\github\\dgm6308_midterm\\6308 blackjack midterm ver.b\\6308 blackjack midterm ver.b\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9E346AAA-8804-4061-81BF-795D6FA1C0C5}|6308 BlackJack Midterm Ver.B\\6308 BlackJack Midterm Ver.B.csproj|solutionrelative:6308 blackjack midterm ver.b\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\unila\\OneDrive\\Documents\\GitHub\\DGM6308_Midterm\\6308 BlackJack Midterm Ver.B\\6308 BlackJack Midterm Ver.B\\Program.cs",
+              "RelativeDocumentMoniker": "6308 BlackJack Midterm Ver.B\\Program.cs",
+              "ToolTip": "C:\\Users\\unila\\OneDrive\\Documents\\GitHub\\DGM6308_Midterm\\6308 BlackJack Midterm Ver.B\\6308 BlackJack Midterm Ver.B\\Program.cs",
+              "RelativeToolTip": "6308 BlackJack Midterm Ver.B\\Program.cs",
+              "ViewState": "AQIAAAoBAAAAAAAAAAAAADwBAAAuAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-25T19:37:50.422Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
