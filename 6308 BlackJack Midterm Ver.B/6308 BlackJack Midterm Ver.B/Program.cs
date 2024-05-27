@@ -41,7 +41,6 @@ namespace _6308_BlackJack_Midterm_Ver.B
             while (true)
             {                
                 // Starting each round, and type the numbers of round at the beginning
-
                 round++;
                 Console.WriteLine("ROUND " + round);
                 Console.WriteLine("--------------------------------------------");
@@ -49,19 +48,19 @@ namespace _6308_BlackJack_Midterm_Ver.B
                 int betLimit;
                 if (round < 3)
                 {
-                    betLimit = 5;
+                    betLimit = 10;
                 }
                 else if (round < 6)
                 {
-                    betLimit = 10;
+                    betLimit = 15;
                 }
                 else if (round < 10)
                 {
-                    betLimit = 15;
+                    betLimit = 20;
                 }
                 else if (round < 15)
                 {
-                    betLimit = 20;
+                    betLimit = 25;
                 }
                 else
                 {
@@ -134,6 +133,7 @@ namespace _6308_BlackJack_Midterm_Ver.B
                             if (key == ConsoleKey.D)
                             {
                                 playerTotals[i] += DrawCard(deck, randomCards, "Player" + (i + 1));
+                                Console.WriteLine("--------------------------------------------");
                                 Console.WriteLine("Player" + (i + 1) + "'s total is now " + playerTotals[i]);
                                 Console.WriteLine("--------------------------------------------");
                                 // Busted
@@ -163,7 +163,7 @@ namespace _6308_BlackJack_Midterm_Ver.B
                 bool[] playerBusted = new bool[numPlayers];
                 for (int i = 0; i < numPlayers; i++)
                 {
-                    // Busted
+                    // Busted if over 21
                     if (playerTotals[i] > 21)
                     {
                         Console.WriteLine("Player" + (i + 1) + " busted.");
@@ -177,7 +177,7 @@ namespace _6308_BlackJack_Midterm_Ver.B
                 {   
                     if (!playerBusted[i]) maxPoints = Math.Max(maxPoints, playerTotals[i]);
                 }
-                // Find a winners
+                // Find a winners based on Max Points
                 List<string> winners = new List<string>();
                 for (int i = 0; i < numPlayers; i++)
                 {
@@ -197,6 +197,7 @@ namespace _6308_BlackJack_Midterm_Ver.B
 
                     for (int i = 0; i < numPlayers; i++)
                     {
+                       
                         // Starting bet for each players
                         playerCoins[i] -= playerBets[i];
                     }
@@ -204,7 +205,9 @@ namespace _6308_BlackJack_Midterm_Ver.B
                     if (winners.Count == 1)
                     {
                         string winner = winners[0];
+                        Console.WriteLine("--------------------------------------------");
                         Console.WriteLine($"{winner} wins this round!");
+                        Console.WriteLine("--------------------------------------------");
                         for (int i = 0; i < numPlayers; i++)
                         {
                             if (winner == "Player" + (i + 1)) playerCoins[i] += totalBet;
@@ -215,7 +218,9 @@ namespace _6308_BlackJack_Midterm_Ver.B
                         int share = totalBet / winners.Count;
                         foreach (string winner in winners)
                         {
+                            Console.WriteLine("--------------------------------------------");
                             Console.WriteLine($"{winner} wins this round!");
+                            Console.WriteLine("--------------------------------------------");
                             for (int i = 0; i < numPlayers; i++)
                             {
                                 if (winner == "Player" + (i + 1)) playerCoins[i] += share;
@@ -225,67 +230,82 @@ namespace _6308_BlackJack_Midterm_Ver.B
                 }
                 else // No Winner
                 {
+                    Console.WriteLine("--------------------------------------------");
                     Console.WriteLine("All players busted. No one wins this round.");
+                    Console.WriteLine("--------------------------------------------");
                 }
-
-
-                Console.WriteLine("--------------------------------------------");
                 for (int i = 0; i < numPlayers; i++)
                 {
                     // Reference:https://blog.csdn.net/weixin_43328198/article/details/85311232
+                    Console.WriteLine("--------------------------------------------");
                     Console.WriteLine($"Player{i + 1} Scores：{playerPoints[i]} Coins：{playerCoins[i]}");
                     Console.WriteLine("--------------------------------------------");
                 }
-
 
                 // Win condition
                 int activePlayers = numPlayers;
                 for (int i = 0; i < numPlayers; i++)
                 {
                     // Eliminated players with no bets
-                    if (playerCoins[i] <= 0) activePlayers--;
+                    if (playerCoins[i] <= 0) 
+                        activePlayers--;
                 }
+
                 // When there is only one active player left, the score of all players is recorded
+                Dictionary<string, int> players = new Dictionary<string, int>();
+                for (int i = 0; i < numPlayers; i++)
+                {
+                    // In order to display the score table at the end of the game
+                    players.Add("Player" + (i + 1), playerPoints[i]);
+                }
+                // Reference:https://blog.csdn.net/qq_39108767/article/details/86648448
+                var sortedPlayers = from player in players
+                                    orderby player.Value descending
+                                    select player;
+                int rank = 1;
+                foreach (var player in sortedPlayers)
+                {
+                    //  Tracking 1st Place for each round
+                    if (rank == 1)
+                    {
+                        Console.WriteLine("--------------------------------------------");
+                        Console.WriteLine(player.Key + " leads the game!");
+                        Console.WriteLine("--------------------------------------------");
+                    }
+                    else
+                    {
+                        // Rank 2nd, 3rd, 4th for players for each round 
+                        Console.WriteLine("Rank " + rank + ": " + player.Key + " with " + player.Value + " points");
+                    }
+                    rank++;
+                }
+
                 if (activePlayers == 1)
                 {
-                    // Ref: Chapter 5
-                    // https://stackoverflow.com/questions/71771870/defining-a-dictionarystring-dictionarystring-int
-                    Dictionary<string, int> players = new Dictionary<string, int>();
-                    for (int i = 0; i < numPlayers; i++)
-                    {
-                        // In order to display the score table at the end of the game
-                        players.Add("Player" + (i + 1), playerPoints[i]);
-                    }
-                    // Reference:https://blog.csdn.net/qq_39108767/article/details/86648448
-                    var sortedPlayers = from player in players
-                                        orderby player.Value descending
-                                        select player;
-
-                    int rank = 1;
-                    foreach (var player in sortedPlayers)
-                    {
-                        // 1st Place
-                        if (rank == 1)
-                        {
-                            Console.WriteLine(player.Key + " wins the game!");
-                        }
-                        else
-                        {
-                            // Rank 2nd, 3rd, 4th for players
-                            Console.WriteLine("Rank " + rank + ": " + player.Key + " with " + player.Value + " points");
-                        }
-                        rank++;
-                    }
                     break;
                 }
                 else
                 { // Player who gets 50 points also wins this game
                     for (int i = 0; i < numPlayers; i++)
                     {
-                        if (playerPoints[i] >= 50)
+                        if (playerPoints[i] == 50)
                         {
                             Console.WriteLine("Player" + (i + 1) + " wins the game with " + playerPoints[i] + " points!");
                             return; // End the game immediately
+                        }
+                    }
+                    // Before starting a new round, Check if the player has enough coins to bet
+                    for (int i = 0; i < numPlayers; i++)
+                    {
+                        // If not bets, the players out of the game, and the game should be end immediately.
+                        if (playerCoins[i] <= 0)
+                        {
+                            Console.WriteLine("--------------------------------------------");
+                            Console.WriteLine($"Player{i + 1} doesn't have enough coins. Player{i + 1} out of the game, and get 3rd/4th place !");
+                            Console.WriteLine("--------------------------------------------");
+                            // Remove the player from the game
+                            numPlayers--;
+
                         }
                     }
                 }
@@ -347,5 +367,4 @@ namespace _6308_BlackJack_Midterm_Ver.B
             }
         }
     }
-
-        }
+}
