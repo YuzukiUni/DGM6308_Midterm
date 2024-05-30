@@ -104,7 +104,7 @@ namespace _6308_BlackJack_Midterm_Ver.B
                         {
                             gameContinue = true;
                             Console.WriteLine("--------------------------------------------");
-                            Console.WriteLine("Press 'D' to draw another card, 'B' to add to your bet, 'H' to hold: ");
+                            Console.WriteLine($"Player {i + 1} 'D' to draw another card, 'B' to add to your bet, 'H' to hold: ");
                             var key = Console.ReadKey(true).Key;
                             Console.WriteLine("--------------------------------------------");
                             // Let player press each button to hand/draw/add bet
